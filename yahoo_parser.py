@@ -296,6 +296,7 @@ def _parse_block(block: str) -> Optional[Product]:
         source="ヤフオク",
         current_price=current_price,
         shipping_fee=shipping_fee,
+        item_id=item_id,
     )
     # Streamlit用の追加フラグ（dataclassの外に動的付与）
     p._shipping_warning = shipping_warning

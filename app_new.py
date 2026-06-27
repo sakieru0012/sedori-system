@@ -141,10 +141,34 @@ html, body, [class*="css"] {
 
 /* フォーム */
 .stTextArea textarea, .stTextInput input, .stNumberInput input {
-    background: #111827 !important;
-    border: 1px solid #1f2937 !important;
-    color: #e2e8f0 !important;
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #0f172a !important;
     border-radius: 8px !important;
+}
+.stSelectbox > div > div {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #0f172a !important;
+    border-radius: 8px !important;
+}
+.stSelectbox label, .stTextInput label, .stNumberInput label,
+.stTextArea label, .stCheckbox label {
+    color: #334155 !important;
+    font-weight: 600 !important;
+}
+/* エクスパンダー内のテキスト */
+.stExpander {
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 8px !important;
+}
+.streamlit-expanderContent {
+    background: #f8fafc !important;
+}
+/* caption・markdown テキスト */
+.stMarkdown p, .stCaption, small {
+    color: #475569 !important;
 }
 .stButton > button {
     background: linear-gradient(135deg, #1d4ed8, #1e40af);
@@ -190,7 +214,21 @@ html, body, [class*="css"] {
 
 .stAlert { border-radius: 8px; }
 .stExpander { border: 1px solid #1f2937 !important; border-radius: 8px !important; }
+/* クリップボードコピー用 */
+.copy-toast { display: none; }
 </style>
+<script>
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).catch(() => {
+        const el = document.createElement('textarea');
+        el.value = text;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+    });
+}
+</script>
 """, unsafe_allow_html=True)
 
 # ============================================================
@@ -432,6 +470,24 @@ with tab_watch:
         </div>
         """, unsafe_allow_html=True)
 
+                # ---- アクションボタン ----
+                btn_cols = st.columns([3, 3, 4])
+                # オークファンで開く
+                if p.item_id:
+                    aucfan_url = f"https://aucview.aucfan.com/yahoo/{p.item_id}/"
+                    with btn_cols[0]:
+                        st.markdown(
+                            f'<a href="{aucfan_url}" target="_blank">'
+                            f'<button style="width:100%;padding:4px 8px;background:#16a34a;'
+                            f'color:white;border:none;border-radius:6px;cursor:pointer;'
+                            f'font-size:0.75rem">🔖 オークファン</button></a>',
+                            unsafe_allow_html=True,
+                        )
+                # 推奨上限をコピー
+                if r.recommended_max_bid > 0:
+                    with btn_cols[1]:
+                        st.code(str(r.recommended_max_bid), language=None)
+
                 # 実績詳細の展開表示
                 if r.sales_summary and r.sales_summary.records:
                     with st.expander(
@@ -582,7 +638,8 @@ with tab_watch:
                                     # 通常商品は Step1 で確定した正規名を使用
                                     canonical_val = items_list[0].get("canonical", r.product.name)
                                     items_list[idx]["canonical"] = canonical_val
-                                    st.caption(f"正規名: {canonical_val}")
+                                    st.caption(f"正規名:")
+                                    st.code(canonical_val, language=None)
 
                             with col_del:
                                 if idx > 0:

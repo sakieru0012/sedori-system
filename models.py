@@ -21,3 +21,4 @@ class Product:
     # ヤフオク拡張フィールド（他ソースでは None でOK）
     current_price: Optional[int] = field(default=None)   # 現在の入札価格
     shipping_fee: Optional[int] = field(default=None)    # 送料（出品者表示）
+    item_id: str = field(default="")                     # ヤフオク商品ID
