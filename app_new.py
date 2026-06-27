@@ -222,6 +222,29 @@ html, body, [class*="css"] {
     border-radius: 6px !important;
     font-size: 0.82rem !important;
 }
+/* ラジオボタン・ラベル全般 */
+.stRadio label, .stRadio div, .stRadio p,
+[data-testid="stRadio"] label,
+[data-testid="stRadio"] p {
+    color: #0f172a !important;
+    font-weight: 600 !important;
+}
+/* ラジオボタン選択肢のテキスト */
+.stRadio [data-testid="stMarkdownContainer"] p {
+    color: #0f172a !important;
+}
+/* エキスパンダーのタイトル */
+.stExpander summary,
+.stExpander summary p,
+.stExpander summary span,
+[data-testid="stExpander"] summary {
+    color: #0f172a !important;
+    font-weight: 700 !important;
+}
+/* キャプション・サブテキスト */
+.stCaption, [data-testid="stCaptionContainer"] p {
+    color: #334155 !important;
+}
 /* セレクトボックスの文字色 */
 .stSelectbox > div > div,
 .stSelectbox > div > div > div,
