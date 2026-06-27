@@ -214,8 +214,32 @@ html, body, [class*="css"] {
 
 .stAlert { border-radius: 8px; }
 .stExpander { border: 1px solid #1f2937 !important; border-radius: 8px !important; }
-/* クリップボードコピー用 */
-.copy-toast { display: none; }
+/* コードブロック（コピー用）を見やすく */
+.stCode, .stCode code, pre, pre code {
+    background: #f1f5f9 !important;
+    color: #0f172a !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 6px !important;
+    font-size: 0.82rem !important;
+}
+/* セレクトボックスの文字色 */
+.stSelectbox > div > div,
+.stSelectbox > div > div > div,
+.stSelectbox span,
+[data-baseweb="select"] span,
+[data-baseweb="select"] div {
+    color: #0f172a !important;
+    background: #ffffff !important;
+}
+/* ドロップダウンの選択肢 */
+[role="listbox"] li,
+[role="option"] {
+    color: #0f172a !important;
+    background: #ffffff !important;
+}
+[role="option"]:hover {
+    background: #f1f5f9 !important;
+}
 </style>
 <script>
 function copyToClipboard(text) {
